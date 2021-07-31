@@ -1,12 +1,18 @@
-import pandas as pd
 import os
+# Select DIR
+os.getcwd()
+from Func_V2 import *
+import pandas as pd
+## 
+
+DATA_PATH = 'D:\\기계시설물 고장 예지 센서\\Training\\\\vibration'
 
 from sklearn import feature_extraction
 ### Summary
 
-file_name = os.listdir('Training_vibration_summary')
+file_name = os.listdir(DATA_PATH)
 
-Path = 'Training_vibration_summary'
+
 
 file = file_name[0]
 
