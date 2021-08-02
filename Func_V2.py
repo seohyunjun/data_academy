@@ -1,8 +1,17 @@
 import os
+import matplotlib
+from numpy.core import multiarray
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import tqdm
+
+## Font
+import matplotlib.font_manager as fm
+plt.rcParams['axes.unicode_minus'] = False
+plt.rcParams['font.family'] = 'NanumSquare_ac'
+font_list = fm.findSystemFonts(fontpaths=None, fontext='ttf')
+Nanum_list = [(f.name, f.fname) for f in fm.fontManager.ttflist if 'Nanum' in f.name]
 
 from dateutil.parser import parse
 
@@ -130,6 +139,8 @@ def gen_vibration_pre_data(normal):
             idx:temp_idx
         }
         data_temp.append(type_temp)
+
+    data_temp = pd.DataFrame(data_temp[0]['vibration'],columns=['peak_vibration'])
     return data_temp
 def load_current_rms_data(path,file_name):
     type = pd.read_csv(f'{path}/{file_name}', header=None, sep=',', nrows=1, skiprows=[0, 1, 2])
@@ -274,3 +285,24 @@ def plot_animation(current_data,len_bid=100,bid=50,save=None,save_name=None):
         #ani_x.save("movie.mp4")
         ani_x.save(f'{save_name}.gif', writer='imagemagick', fps=30, dpi=100)
     plt.show()
+
+
+def count_peak(value,num):
+    peak_len = len(value) // num
+    peak_max = []
+    peak_min = []
+    for i in range(peak_len):
+        temp = value[0+num*i:num+num*i]
+        max_temp = max(temp)
+        min_temp = min(temp)
+
+        peak_max.append(max_temp)
+        peak_min.append(min_temp)
+
+    peak = pd.DataFrame()
+    peak['max'] = peak_max
+    peak['min'] = peak_min
+
+    return peak
+
+    

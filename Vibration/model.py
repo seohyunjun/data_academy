@@ -35,6 +35,21 @@ for file in file_names:
 
 np_normal = np.array(np_normal)
 
+type = 'vibration'
+kw = '15'
+machine = 'R-CAHU-03S'
+ab_state = '벨트느슨함'
+path,file_names = detect_file_name(type, kw, machine, ab_state)
+
+ab_normal = []
+for file in file_names:
+    temp = load_vibration_data(path,file)
+    value = np.array(temp['vibration'].values)
+
+    ab_normal.append(value)
+
+ab_normal = np.array(ab_normal)
+
 # https://www.kaggle.com/rkuo2000/sensor-anomaly-detection
 # transforming data from the time domain to the frequency domain using fast Fourier transform
 ###############################
