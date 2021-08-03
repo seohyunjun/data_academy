@@ -3,23 +3,43 @@ os.getcwd()
 # Select DIR
 from Func_V2 import *
 import pandas as pd
-## 
+import re
 
-## ìì·¨ë°©
-#DATA_PATH = 'D:\\ê¸°ê³„ì‹œì„¤ë¬¼ ê³ ì¥ ì˜ˆì§€ ì„¼ì„œ\\Training'
+## ÀÚÃë¹æ
+#DATA_PATH = 'D:\\±â°è½Ã¼³¹° °íÀå ¿¹Áö ¼¾¼­\\Training'
 
-## íšŒì‚¬
-DATA_PATH = 'D:\\project\\ê¸°ê³„ì‹œì„¤ë¬¼ ê³ ì¥ ì˜ˆì§€ ì„¼ì„œ\\Training'
+## È¸»ç
+DATA_PATH = 'D:\\project\\±â°è½Ã¼³¹° °íÀå ¿¹Áö ¼¾¼­\\Training'
 ORG_PATH = 'C:\\Users\\A\\code'
 ### Summary
 ## change directory
 os.chdir(DATA_PATH)
 
+### list_path
+kw_input_list = os.listdir('vibration')
+kw_list = [re.sub('kW','',x) for x in kw]
 type = 'vibration'
-kw = '15'
-machine = 'R-CAHU-03S'
-state = 'ì •ìƒ'
-path,file_names = detect_file(type, kw, machine, state)
+
+for volume in tqdm.tqdm(kw_input_list,total=len(kw_input_list)):
+    kw = re.sub('kW','',volume)
+    machine_list = os.listdir(f'{type}\{volume}')
+    for machine_nm in machine_list:
+        machine = machine_nm
+        type = 'vibration'
+        state_list = os.listdir(f'{type}\{volume}\{machine}')
+
+        if len(state_list)==1:
+            for state in state_list:
+                    path,file_names = load_vibration_data(type, kw, machine, state)
+                    #file_name = os.listdir(DATA_PATH)
+                    file = file_names[0]
+                    data0 = load_vibration_data(path,file)
+                    
+
+        
+
+state = 'Á¤»ó'
+path,file_names = load_vibration_data(type, kw, machine, state)
 #file_name = os.listdir(DATA_PATH)
 file = file_names[0]
 
@@ -28,7 +48,7 @@ file = file_names[0]
 type = 'vibration'
 kw = '15'
 machine = 'R-CAHU-03S'
-state = 'ì •ìƒ'
+state = 'Á¤»ó'
 path,file_names = detect_file_name(type, kw, machine, state)
 #file_name = os.listdir(DATA_PATH)
 #### Peak Value Extract
@@ -51,7 +71,7 @@ plt.show()
 type = 'vibration'
 kw = '15'
 machine = 'R-CAHU-03S'
-state = 'ë²¨íŠ¸ëŠìŠ¨í•¨'
+state = 'º§Æ®´À½¼ÇÔ'
 path,file_names = detect_file_name(type, kw, machine, state)
 #file_name = os.listdir(DATA_PATH)
 #### Peak Value Extract
@@ -70,7 +90,3 @@ plt.xlabel('x')
 plt.ylabel('Peak Count')
 plt.legend()
 plt.show()
-
-
-
-
