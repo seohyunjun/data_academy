@@ -99,7 +99,7 @@ for volume in tqdm.tqdm(kw_input_list,total=len(kw_input_list)):
                plt.legend()
                plt.title(f'{type}_{kw}_{machine}_{state_list[1]}')
                os.chdir(ORG_PATH)
-               plt.savefig(f'plot/vibration_peak_plot/{type}_{kw}_{machine}_{state}.jpg',dpi=300)
+               plt.savefig(f'plot/vibration_peak_plot2/{type}_{kw}_{machine}_{state}.jpg',dpi=300)
                os.chdir(DATA_PATH)
 
 
