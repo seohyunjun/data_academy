@@ -6,11 +6,11 @@ import pandas as pd
 import re
 
 ## 자취방
-#DATA_PATH = 'D:\\기계시설물 고장 예지 센서\\Training'
-
+DATA_PATH = 'D:\\기계시설물 고장 예지 센서\\Training'
+ORG_PATH = 'C:\\Users\\admin\\Desktop\\code'
 ## 회사
-DATA_PATH = 'D:\\project\\기계시설물 고장 예지 센서\\Training'
-ORG_PATH = 'C:\\Users\\A\\Desktop\\code'
+#DATA_PATH = 'D:\\project\\기계시설물 고장 예지 센서\\Training'
+#ORG_PATH = 'C:\\Users\\A\\Desktop\\code'
 ### Summary
 ## change directory
 os.chdir(DATA_PATH)
@@ -19,7 +19,6 @@ os.chdir(DATA_PATH)
 kw_input_list = os.listdir('vibration')
 kw_list = [re.sub('kW','',x) for x in kw_input_list]
 type = 'vibration'
-
 for volume in tqdm.tqdm(kw_input_list,total=len(kw_input_list)):
     kw = re.sub('kW','',volume)
     machine_list = os.listdir(f'{type}\{volume}')
@@ -34,73 +33,105 @@ for volume in tqdm.tqdm(kw_input_list,total=len(kw_input_list)):
                       
                for state in state_list:
                       path ,file_names = detect_file_name(type, kw, machine, state)
-                      file = file_names[0]
-                      data0 = load_vibration_data(path,file)
-                      peak_200 = count_peak(data0['vibration'],200)
-                      col='red'
-                      if state == '정상': col='black'
                       plt.figure(figsize=(15,7))
-                      plt.ylim([-sp_len,sp_len])                        
-                      plt.plot(peak_200['max'],color=col,label=f'{type}_{kw}_{machine}_{state}_max')
-                      plt.plot(peak_200['min'],color=col,label=f'{type}_{kw}_{machine}_{state}_min')
+                      plt.ylim([-sp_len,sp_len])
+                      
+                      for i in range(10):     
+                        file = file_names[i]
+                        data0 = load_vibration_data(path,file)
+                        peak_200 = count_peak(data0['vibration'],200)
+                        col='red'
+                        if state == '정상': col='black'
+                        if i==0:
+                               plt.scatter(range(60),peak_200['max'],color=col,label=f'{type}_{kw}_{machine}_{state}_max')
+                               plt.scatter(range(60),peak_200['min'],color=col,label=f'{type}_{kw}_{machine}_{state}_min')                          
+                        plt.scatter(range(60),peak_200['max'],color=col)
+                        plt.scatter(range(60),peak_200['min'],color=col)
                       plt.legend()
                       plt.title(f'{type}_{kw}_{machine}_{state}')
                       os.chdir(ORG_PATH)
-                      plt.savefig(f'plot/vibration_peak_plot/{type}_{kw}_{machine}_{state}.jpg',dpi=300)
+                      plt.savefig(f'plot/vibration_peak_plot2/{type}_{kw}_{machine}_{state}.jpg',dpi=300)
                       os.chdir(DATA_PATH)
       
         if len(state_list)==2:
                path ,file_names = detect_file_name(type, kw, machine, state_list[0])
-               file0 = file_names[0]
-               data0 = load_vibration_data(path,file0)
-               peak_200_0 = count_peak(data0['vibration'],200) 
-               
-               path ,file_names = detect_file_name(type, kw, machine, state_list[1])
-               file1 = file_names[1]
-               data1 = load_vibration_data(path,file1)
-               peak_200_1 = count_peak(data1['vibration'],200) 
                plt.figure(figsize=(15,7))
                plt.ylim([-0.13,0.13])                        
-               plt.plot(peak_200_0['max'],color='black',label=f'{type}_{kw}_{machine}_{state_list[0]}_max')
-               plt.plot(peak_200_0['min'],color='black',label=f'{type}_{kw}_{machine}_{state_list[0]}_min')
-               plt.plot(peak_200_1['max'],color='r',label=f'{type}_{kw}_{machine}_{state_list[1]}_max')
-               plt.plot(peak_200_1['min'],color='r',label=f'{type}_{kw}_{machine}_{state_list[1]}_min')
-               plt.legend()
-               plt.title(f'{type}_{kw}_{machine}_{state_list[1]}')
-               os.chdir(ORG_PATH)
-               plt.savefig(f'plot/vibration_peak_plot/{type}_{kw}_{machine}_{state}.jpg',dpi=300)
-               os.chdir(DATA_PATH)
-
-
-        if len(state_list)==3:
-               path ,file_names = detect_file_name(type, kw, machine, state_list[0])
-               file0 = file_names[0]
-               data0 = load_vibration_data(path,file0)
-               peak_200_0 = count_peak(data0['vibration'],200) 
+               for i in range(10):     
+                  file = file_names[i]
+                  data0 = load_vibration_data(path,file)
+                  peak_200_0 = count_peak(data0['vibration'],200)
+                  if i==0 :
+                         plt.plot(peak_200_0['max'],color='black',label=f'{type}_{kw}_{machine}_{state_list[0]}_max')
+                         plt.plot(peak_200_0['min'],color='black',label=f'{type}_{kw}_{machine}_{state_list[0]}_min')
+                         continue
+                  plt.plot(peak_200_0['max'],color='black')
+                  plt.plot(peak_200_0['min'],color='black')
                
                path ,file_names = detect_file_name(type, kw, machine, state_list[1])
-               file1 = file_names[1]
-               data1 = load_vibration_data(path,file1)
-               peak_200_1 = count_peak(data1['vibration'],200) 
-
-               path ,file_names = detect_file_name(type, kw, machine, state_list[2])
-               file2 = file_names[2]
-               data2 = load_vibration_data(path,file2)
-               peak_200_2 = count_peak(data2['vibration'],200) 
-                       
-               plt.figure(figsize=(15,7))
-               plt.ylim([-0.13,0.13])                        
-               plt.plot(peak_200_0['max'],color='black',label=f'{type}_{kw}_{machine}_{state_list[0]}_max')
-               plt.plot(peak_200_0['min'],color='black',label=f'{type}_{kw}_{machine}_{state_list[0]}_min')
-               plt.plot(peak_200_1['max'],color='r',label=f'{type}_{kw}_{machine}_{state_list[1]}_max')
-               plt.plot(peak_200_1['min'],color='r',label=f'{type}_{kw}_{machine}_{state_list[1]}_min')
-               plt.plot(peak_200_2['max'],color='g',label=f'{type}_{kw}_{machine}_{state_list[2]}_max')
-               plt.plot(peak_200_2['min'],color='g',label=f'{type}_{kw}_{machine}_{state_list[2]}_min')
+               for i in range(10):     
+                  file1 = file_names[i]
+                  data1 = load_vibration_data(path,file1)
+                  peak_200_1 = count_peak(data1['vibration'],200) 
+                  
+                  if i==0 :
+                         plt.plot(peak_200_1['max'],color='black',label=f'{type}_{kw}_{machine}_{state_list[0]}_max')
+                         plt.plot(peak_200_1['min'],color='black',label=f'{type}_{kw}_{machine}_{state_list[0]}_min')
+                         continue
+                  plt.plot(peak_200_1['max'],color='black')
+                  plt.plot(peak_200_1['min'],color='black')
                plt.legend()
                plt.title(f'{type}_{kw}_{machine}_{state_list[1]}')
                os.chdir(ORG_PATH)
                plt.savefig(f'plot/vibration_peak_plot2/{type}_{kw}_{machine}_{state}.jpg',dpi=300)
                os.chdir(DATA_PATH)
+
+
+        if len(state_list)==3:
+               path ,file_names = detect_file_name(type, kw, machine, state_list[0])
+               plt.figure(figsize=(15,7))
+               plt.ylim([-0.13,0.13])                        
+               for i in range(10):     
+                  file = file_names[i]
+                  data0 = load_vibration_data(path,file)
+                  peak_200_0 = count_peak(data0['vibration'],200)
+                  if i==0 :
+                         plt.plot(peak_200_0['max'],color='black',label=f'{type}_{kw}_{machine}_{state_list[0]}_max')
+                         plt.plot(peak_200_0['min'],color='black',label=f'{type}_{kw}_{machine}_{state_list[0]}_min')
+                         continue
+                  plt.plot(peak_200_0['max'],color='black')
+                  plt.plot(peak_200_0['min'],color='black')
+               
+               path ,file_names = detect_file_name(type, kw, machine, state_list[1])
+               for i in range(10):     
+                  file = file_names[i]
+                  data1 = load_vibration_data(path,file)
+                  peak_200_1 = count_peak(data1['vibration'],200)
+                  if i==0 :
+                         plt.plot(peak_200_1['max'],color='r',label=f'{type}_{kw}_{machine}_{state_list[1]}_max')
+                         plt.plot(peak_200_1['min'],color='r',label=f'{type}_{kw}_{machine}_{state_list[1]}_min')
+                         continue
+                  plt.plot(peak_200_1['max'],color='r')
+                  plt.plot(peak_200_1['min'],color='r')
+               
+               path ,file_names = detect_file_name(type, kw, machine, state_list[2])
+               for i in range(10):     
+                  file = file_names[i]
+                  data2 = load_vibration_data(path,file)
+                  peak_200_2 = count_peak(data2['vibration'],200)
+                  if i==0 :
+                         plt.plot(peak_200_2['max'],color='g',label=f'{type}_{kw}_{machine}_{state_list[2]}_max')
+                         plt.plot(peak_200_2['min'],color='g',label=f'{type}_{kw}_{machine}_{state_list[2]}_min')
+                         continue
+                  plt.plot(peak_200_2['max'],color='g')
+                  plt.plot(peak_200_2['min'],color='g')
+               plt.legend()
+               plt.title(f'{type}_{kw}_{machine}_{state_list[1]}')
+               os.chdir(ORG_PATH)
+               plt.savefig(f'plot/vibration_peak_plot2/{type}_{kw}_{machine}_{state}.jpg',dpi=300)
+               plt.close()
+               os.chdir(DATA_PATH)
+               
 
 
 
