@@ -76,8 +76,8 @@ for volume in tqdm.tqdm(kw_input_list,total=len(kw_input_list)):
                   peak_200_1 = count_peak(data1['vibration'],200) 
                   
                   if i==0 :
-                         plt.plot(range(60),peak_200_1['max'],color='blue',label=f'{type}_{kw}_{machine}_{state_list[0]}_max')
-                         plt.plot(range(60),peak_200_1['min'],color='blue',label=f'{type}_{kw}_{machine}_{state_list[0]}_min')
+                         plt.plot(range(60),peak_200_1['max'],color='blue',label=f'{type}_{kw}_{machine}_{state_list[1]}_max')
+                         plt.plot(range(60),peak_200_1['min'],color='blue',label=f'{type}_{kw}_{machine}_{state_list[1]}_min')
                          continue
                   plt.plot(range(60),peak_200_1['max'],color='blue')
                   plt.plot(range(60),peak_200_1['min'],color='blue')
