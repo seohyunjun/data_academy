@@ -1,9 +1,9 @@
 import os
-os.getcwd()
 # Select DIR
 from Func_V2 import *
 import pandas as pd
 import re
+import tqdm
 
 ## 자취방
 #DATA_PATH = 'D:\\기계시설물 고장 예지 센서\\Training'
@@ -41,13 +41,11 @@ for volume in tqdm.tqdm(kw_input_list,total=len(kw_input_list)):
                         file = file_names[i]
                         data0 = load_vibration_data(path,file)
                         peak_200 = count_peak(data0['vibration'],200)
-                        col='red'
-                        if state == '정상': col='black'
                         if i==0:
-                               plt.plot(range(60),peak_200['max'],color=col,label=f'{type}_{kw}_{machine}_{state}_max')
-                               plt.plot(range(60),peak_200['min'],color=col,label=f'{type}_{kw}_{machine}_{state}_min')                          
-                        plt.plot(range(60),peak_200['max'],color=col)
-                        plt.plot(range(60),peak_200['min'],color=col)
+                               plt.plot(range(60),peak_200['max'],color=judge_color(state),label=f'{type}_{kw}_{machine}_{state}_max')
+                               plt.plot(range(60),peak_200['min'],color=judge_color(state),label=f'{type}_{kw}_{machine}_{state}_min')                          
+                        plt.plot(range(60),peak_200['max'],color=judge_color(state))
+                        plt.plot(range(60),peak_200['min'],color=judge_color(state))
                       plt.legend()
                       plt.title(f'{type}_{kw}_{machine}_{state}')
                       os.chdir(ORG_PATH)
@@ -63,11 +61,11 @@ for volume in tqdm.tqdm(kw_input_list,total=len(kw_input_list)):
                   data0 = load_vibration_data(path,file)
                   peak_200_0 = count_peak(data0['vibration'],200)
                   if i==0 :
-                         plt.plot(range(60),peak_200_0['max'],color='black',label=f'{type}_{kw}_{machine}_{state_list[0]}_max')
-                         plt.plot(range(60),peak_200_0['min'],color='black',label=f'{type}_{kw}_{machine}_{state_list[0]}_min')
+                         plt.plot(range(60),peak_200_0['max'],color=judge_color(state_list[0]),label=f'{type}_{kw}_{machine}_{state_list[0]}_max')
+                         plt.plot(range(60),peak_200_0['min'],color=judge_color(state_list[0]),label=f'{type}_{kw}_{machine}_{state_list[0]}_min')
                          continue
-                  plt.plot(range(60),peak_200_0['max'],color='black')
-                  plt.plot(range(60),peak_200_0['min'],color='black')
+                  plt.plot(range(60),peak_200_0['max'],color=judge_color(state_list[0]))
+                  plt.plot(range(60),peak_200_0['min'],color=judge_color(state_list[0]))
                
                path ,file_names = detect_file_name(type, kw, machine, state_list[1])
                for i in range(10):     
@@ -76,11 +74,11 @@ for volume in tqdm.tqdm(kw_input_list,total=len(kw_input_list)):
                   peak_200_1 = count_peak(data1['vibration'],200) 
                   
                   if i==0 :
-                         plt.plot(range(60),peak_200_1['max'],color='blue',label=f'{type}_{kw}_{machine}_{state_list[1]}_max')
-                         plt.plot(range(60),peak_200_1['min'],color='blue',label=f'{type}_{kw}_{machine}_{state_list[1]}_min')
+                         plt.plot(range(60),peak_200_1['max'],color=judge_color(state_list[1]),label=f'{type}_{kw}_{machine}_{state_list[1]}_max')
+                         plt.plot(range(60),peak_200_1['min'],color=judge_color(state_list[1]),label=f'{type}_{kw}_{machine}_{state_list[1]}_min')
                          continue
-                  plt.plot(range(60),peak_200_1['max'],color='blue')
-                  plt.plot(range(60),peak_200_1['min'],color='blue')
+                  plt.plot(range(60),peak_200_1['max'],color=judge_color(state_list[1]))
+                  plt.plot(range(60),peak_200_1['min'],color=judge_color(state_list[1]))
                plt.legend()
                plt.title(f'{type}_{kw}_{machine}_{state_list[1]}')
                os.chdir(ORG_PATH)
@@ -97,11 +95,11 @@ for volume in tqdm.tqdm(kw_input_list,total=len(kw_input_list)):
                   data0 = load_vibration_data(path,file)
                   peak_200_0 = count_peak(data0['vibration'],200)
                   if i==0 :
-                         plt.plot(range(60),peak_200_0['max'],color='black',label=f'{type}_{kw}_{machine}_{state_list[0]}_max')
-                         plt.plot(range(60),peak_200_0['min'],color='black',label=f'{type}_{kw}_{machine}_{state_list[0]}_min')
+                         plt.plot(range(60),peak_200_0['max'],color=judge_color(state_list[0]),label=f'{type}_{kw}_{machine}_{state_list[0]}_max')
+                         plt.plot(range(60),peak_200_0['min'],color=judge_color(state_list[0]),label=f'{type}_{kw}_{machine}_{state_list[0]}_min')
                          continue
-                  plt.plot(range(60),peak_200_0['max'],color='black')
-                  plt.plot(range(60),peak_200_0['min'],color='black')
+                  plt.plot(range(60),peak_200_0['max'],color=judge_color(state_list[0]))
+                  plt.plot(range(60),peak_200_0['min'],color=judge_color(state_list[0]))
                
                path ,file_names = detect_file_name(type, kw, machine, state_list[1])
                for i in range(10):     
@@ -109,11 +107,11 @@ for volume in tqdm.tqdm(kw_input_list,total=len(kw_input_list)):
                   data1 = load_vibration_data(path,file)
                   peak_200_1 = count_peak(data1['vibration'],200)
                   if i==0 :
-                         plt.plot(range(60),peak_200_1['max'],color='r',label=f'{type}_{kw}_{machine}_{state_list[1]}_max')
-                         plt.plot(range(60),peak_200_1['min'],color='r',label=f'{type}_{kw}_{machine}_{state_list[1]}_min')
+                         plt.plot(range(60),peak_200_1['max'],color=judge_color(state_list[1]),label=f'{type}_{kw}_{machine}_{state_list[1]}_max')
+                         plt.plot(range(60),peak_200_1['min'],color=judge_color(state_list[1]),label=f'{type}_{kw}_{machine}_{state_list[1]}_min')
                          continue
-                  plt.plot(range(60),peak_200_1['max'],color='r')
-                  plt.plot(range(60),peak_200_1['min'],color='r')
+                  plt.plot(range(60),peak_200_1['max'],color=judge_color(state_list[1]))
+                  plt.plot(range(60),peak_200_1['min'],color=judge_color(state_list[1]))
                
                path ,file_names = detect_file_name(type, kw, machine, state_list[2])
                for i in range(10):     
@@ -121,11 +119,11 @@ for volume in tqdm.tqdm(kw_input_list,total=len(kw_input_list)):
                   data2 = load_vibration_data(path,file)
                   peak_200_2 = count_peak(data2['vibration'],200)
                   if i==0 :
-                         plt.plot(range(60),peak_200_2['max'],color='g',label=f'{type}_{kw}_{machine}_{state_list[2]}_max')
-                         plt.plot(range(60),peak_200_2['min'],color='g',label=f'{type}_{kw}_{machine}_{state_list[2]}_min')
+                         plt.plot(range(60),peak_200_2['max'],color=judge_color(state_list[2]),label=f'{type}_{kw}_{machine}_{state_list[2]}_max')
+                         plt.plot(range(60),peak_200_2['min'],color=judge_color(state_list[2]),label=f'{type}_{kw}_{machine}_{state_list[2]}_min')
                          continue
-                  plt.plot(range(60),peak_200_2['max'],color='g')
-                  plt.plot(range(60),peak_200_2['min'],color='g')
+                  plt.plot(range(60),peak_200_2['max'],color=judge_color(state_list[2]))
+                  plt.plot(range(60),peak_200_2['min'],color=judge_color(state_list[2]))
                plt.legend()
                plt.title(f'{type}_{kw}_{machine}_{state_list[1]}')
                os.chdir(ORG_PATH)

@@ -276,7 +276,7 @@ def plot_animation(current_data,len_bid=100,bid=50,save=None,save_name=None):
         print(i)
         return [line_x,line_y, line_z]
 
-    t = (len(first)-len_bid) // bid
+    t = (len(x)-len_bid) // bid
     ani_x= animation.FuncAnimation(fig, animate,t, interval=199, blit=True, save_count=1)
     #ani_y = animation.FuncAnimation(fig, animate_y, interval=200, blit=True, save_count=1)
     #ani_z = animation.FuncAnimation(fig, animate_z, interval=200, blit=True, save_count=1)
@@ -305,4 +305,16 @@ def count_peak(value,num):
 
     return peak
 
-    
+
+def judge_color(state):
+    if state=='정상':
+        col = 'black'
+    if state=='베어링불량':
+        col = 'red'
+    if state=='회전체불평형':
+        col = 'blue'
+    if state=='축정렬불량':
+        col = 'green'
+    if state=='벨트느슨함':
+        col = 'orange'
+    return col
