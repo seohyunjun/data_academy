@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import os
 import matplotlib
 from numpy.core import multiarray
@@ -307,14 +308,14 @@ def count_peak(value,num):
 
 
 def judge_color(state):
-    if state=='Á¤»ó':
+    if state=='ï¿½ï¿½ï¿½ï¿½':
         col = 'black'
-    if state=='º£¾î¸µºÒ·®':
+    if state=='ï¿½ï¿½ï¿½î¸µï¿½Ò·ï¿½':
         col = 'red'
-    if state=='È¸ÀüÃ¼ºÒÆòÇü':
+    if state=='È¸ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½':
         col = 'blue'
-    if state=='ÃàÁ¤·ÄºÒ·®':
+    if state=='ï¿½ï¿½ï¿½ï¿½ï¿½ÄºÒ·ï¿½':
         col = 'green'
-    if state=='º§Æ®´À½¼ÇÔ':
+    if state=='ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½':
         col = 'orange'
     return col
