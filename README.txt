@@ -51,3 +51,14 @@ https://blog.naver.com/statstorm/222410116082
 
 ##
 완전히 알 수 없는 경우
+
+##
+sampling 방법
+https://blog.naver.com/pmw9440/222414568243
+
+
+## Power Point
+https://docs.google.com/presentation/d/1Yr0i_iTTahdRIN6ClQu0KhNzEUtT0Er-BmW5j29_XnU/edit#slide=id.ge69f820f30_0_33
+
+~11일까지 
+
