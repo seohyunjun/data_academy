@@ -9,11 +9,11 @@ import numpy as np
 ## 
 ## 자취방
 
-OR_PATH = 'C:\\Users\\admin\\Desktop\\code'
-DATA_PATH = 'D:\\기계시설물 고장 예지 센서\\Training'
+#OR_PATH = 'C:\\Users\\admin\\Desktop\\code'
+#DATA_PATH = 'D:\\기계시설물 고장 예지 센서\\Training'
 
 ## 회사
-#DATA_PATH = 'D:\\project\\기계시설물 고장 예지 센서\\Training'
+DATA_PATH = 'D:\\project\\기계시설물 고장 예지 센서\\Training'
 
 os.chdir(DATA_PATH)
 type = 'vibration'
@@ -23,6 +23,7 @@ state = '정상'
 path,file_names = detect_file_name(type, kw, machine, state)
 file = file_names[0]
 normal = load_vibration_data(path,file)
+
 
 
 state = '축정렬불량'
