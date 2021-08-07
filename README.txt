@@ -1,6 +1,5 @@
 ## 데이터 아카데미 교육 프로젝트 
 
-
 Vibration_ANALYSIS 
 * PEAK VALUE COUNT
 ## 1. 누가봐도 눈으로 구별이 되는경우
@@ -20,7 +19,7 @@ Vibration_ANALYSIS
     CR = (200 - in point) / 200: 1에 가까울수록 정상에 가까움
 			    0에 가까울수록 비정상에 가까움
 
-## 3. 완전 알수 없는 경우
+## 3. 완전 알 수 없는 경우
     12 정상 & 회전체불평형(3.7) L-PAC-01
     21 정상 & 벨트느슨함(7.5) R-CAHU-03R
     23 정상 & 축정렬불량 &  회전체불평형(11) L-CAHU-01R
@@ -34,4 +33,21 @@ Vibration_ANALYSIS
 
 ## 4. 정상만 있는 경우
     1,5,6,9,11,13,14,15,20,24,28
+
    추후연구과제
+
+
+
+
+[0807]
+## 
+Plot Min 부분을 절댓값을 취해 상수와 같은 하나의 선으로 표현 
+
+## 
+Jittering
+https://campus.datacamp.com/courses/exploratory-data-analysis-in-python/relationships?ex=4
+https://blog.naver.com/statstorm/222410116082
+
+
+##
+완전히 알 수 없는 경우
