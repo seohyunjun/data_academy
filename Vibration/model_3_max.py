@@ -24,19 +24,26 @@ ab_state = '회전체불평형'
 
 # 정상 : 33552
 # 회전체불평형 : 16336
-normal_peak, abnormal_peak = total_peak_load(type,kw,machine,state,ab_state,200)
+normal_peak, abnormal_peak = total_peak_max_load(type,kw,machine,state,ab_state,200)
 
 # reshape
 np_normal_peak = np.array(normal_peak).reshape(len(normal_peak)//60,60)
 np_abnormal_peak = np.array(abnormal_peak).reshape(len(abnormal_peak)//60,60)
 
 from sklearn.preprocessing import MinMaxScaler
-from sklearn.externals import joblib
+#from sklearn.externals import joblib
+import joblib
 import seaborn as sns
 sns.set(color_codes=True)
 
 X_train = np_normal_peak
 X_test = np_abnormal_peak
+
+scaler = MinMaxScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
+scaler_filename = "scaler_data"
+joblib.dump(scaler, scaler_filename)
 
 #reshape
 X_train = X_train.reshape(X_train.shape[0],1,X_train.shape[1])
@@ -44,6 +51,7 @@ X_test = X_test.reshape(np_abnormal_peak.shape[0],1,np_abnormal_peak.shape[1])
 
 print("Training data shape:", X_train.shape)
 print("Test data shape:", X_test.shape)
+
 
 from numpy.random import seed
 import tensorflow as tf
@@ -83,12 +91,12 @@ history = model.fit(X_train, X_train, epochs=nb_epochs, batch_size=batch_size,
 
 
 os.chdir(OR_PATH)
-model.save(f'model/{type}_{kw}_{machine}_{ab_state}.h5')
+model.save(f'model/{type}_{kw}_{machine}_{ab_state}_Scale_Min_Max(max).h5')
 plt.figure(figsize=(15,10))
 plt.plot(history['loss'],label='loss')
 plt.legend()
-plt.title(f'{type}_{kw}_{machine}_{ab_state} Model Loss Plot')
-plt.savefig(f'model_plot/{type}_{kw}_{machine}_{ab_state}_Model_Loss_Plot.jpg',dpi=300)
+plt.title(f'{type}_{kw}_{machine}_{ab_state} Model Loss Plot Scale Min Max(max)')
+plt.savefig(f'model_plot/{type}_{kw}_{machine}_{ab_state}_Model_Loss_Plot_Scale_Min_Max(max).jpg',dpi=300)
 plt.show()
 os.chdir(DATA_PATH)
 
@@ -106,16 +114,22 @@ os.chdir(OR_PATH)
 plt.figure(figsize=(16,9), dpi=80)
 plt.title(f'{type} {kw} {machine} {ab_state} Loss Distribution', fontsize=16)
 sns.distplot(scored['Loss_mae'], bins = 20, kde= True, color = 'blue')
-plt.savefig(f'model_plot/{type}_{kw}_{machine}_{ab_state}_Loss_Distribution.jpg',dpi=300)
+plt.savefig(f'model_plot/{type}_{kw}_{machine}_{ab_state}_Loss_Distribution_ScaleMinMax(max).jpg',dpi=300)
 #plt.xlim([0.007,0.008])
 plt.show()
 
 plt.figure(figsize=(16,9), dpi=80)
 plt.title(f'{type} {kw} {machine} {ab_state} Loss Scatter Plot', fontsize=16)
 plt.scatter(range(len(scored)),scored['Loss_mae'])
-plt.savefig(f'model_plot/{type}_{kw}_{machine}_{ab_state}_Loss_Scatter.jpg',dpi=300)
+plt.savefig(f'model_plot/{type}_{kw}_{machine}_{ab_state}_Loss_Scatter_ScaleMinMax(max).jpg',dpi=300)
 plt.show()
 os.chdir(DATA_PATH)
+
+## 정상 Plot
+#line_train_test = X_train[0].reshape(1,1,60)
+#line_test = model.predict(line_train_test)
+#plt.plot(line_test.reshape(-1))
+#plt.show()
 
 # calculate the loss on the test set
 test_X_pred = model.predict(X_test)
@@ -127,10 +141,10 @@ test_scored = pd.DataFrame(index=test_X_pred.index)
 Xtest = X_test.reshape(X_test.shape[0], X_test.shape[2])
 test_scored['Loss_mae'] = np.mean(np.abs(test_X_pred-Xtest), axis = 1)
 test_scored['Threshold'] = 0.04
-Threshold1 = 0.01
-Threshold2 = 0.03
+Threshold1 = 0.021
+Threshold2 = 0.031
 
-min(test_scored['Loss_mae'])
+#min(test_scored['Loss_mae'])
 
 test_scored['Anomaly'] = [0 if i>Threshold1 and i<Threshold2 else 1 for i in test_scored['Loss_mae']]
 test_scored.head()
@@ -141,7 +155,9 @@ plt.figure(figsize=(15,9))
 plt.title(f'{type}_{kw}_{machine}_{state}_{ab_state}_MAE_Scatter')
 plt.scatter(range(len(scored)),scored['Loss_mae'],label=f'{state}')
 plt.scatter(range(len(test_scored)),test_scored['Loss_mae'],label=f'{ab_state}')
-plt.savefig(f'model_plot/{type}_{kw}_{machine}_{state}_{ab_state}_MAE_Scatter.jpg',dpi=300)
+plt.savefig(f'model_plot/{type}_{kw}_{machine}_{state}_{ab_state}_MAE_Scatter_ScaleMinMax.jpg',dpi=300)
 plt.legend()
 plt.show()
 os.chdir(DATA_PATH)
+
+
