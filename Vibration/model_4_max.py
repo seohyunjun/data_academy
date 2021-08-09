@@ -7,26 +7,25 @@ import pandas as pd
 import numpy as np
 
 ## 
-## ÏûêÏ∑®Î∞©
+## ¿⁄√ÎπÊ
 
 #OR_PATH = 'C:\\Users\\admin\\Desktop\\code'
-#DATA_PATH = 'D:\\Í∏∞Í≥ÑÏãúÏÑ§Î¨º Í≥†Ïû• ÏòàÏßÄ ÏÑºÏÑú\\Training'
-#VALIDATION_PATH = 'D:\\Í∏∞Í≥ÑÏãúÏÑ§Î¨º Í≥†Ïû• ÏòàÏßÄ ÏÑºÏÑú\\Validation'
-## ÌöåÏÇ¨
-DATA_PATH = 'D:\\project\\Í∏∞Í≥ÑÏãúÏÑ§Î¨º Í≥†Ïû• ÏòàÏßÄ ÏÑºÏÑú\\Training'
-VALIDATION_PATH = 'D:\\Í∏∞Í≥ÑÏãúÏÑ§Î¨º Í≥†Ïû• ÏòàÏßÄ ÏÑºÏÑú\\Validation'
+#DATA_PATH = 'D:\\±‚∞ËΩ√º≥π∞ ∞Ì¿Â øπ¡ˆ ºæº≠\\Training'
+#VALIDATION_PATH = 'D:\\±‚∞ËΩ√º≥π∞ ∞Ì¿Â øπ¡ˆ ºæº≠\\Validation'
+## »∏ªÁ
+DATA_PATH = 'D:\\project\\±‚∞ËΩ√º≥π∞ ∞Ì¿Â øπ¡ˆ ºæº≠\\Training'
+VALIDATION_PATH = 'D:\\project\\±‚∞ËΩ√º≥π∞ ∞Ì¿Â øπ¡ˆ ºæº≠\\Validation'
 OR_PATH = 'C:\\Users\\A\\Desktop\\code'
-
-
+ 
 os.chdir(DATA_PATH)
 type = 'vibration'
-kw = '2.2'
-machine = 'L-EF-04'
-state = 'Ï†ïÏÉÅ'
-ab_state = 'ÌöåÏ†ÑÏ≤¥Î∂àÌèâÌòï'
+kw = '5.5'
+machine = 'R-CAHU-01R'
+state = '¡§ªÛ'
+ab_state = '»∏¿¸√º∫“∆Ú«¸'
 
-# Ï†ïÏÉÅ : 33552
-# ÌöåÏ†ÑÏ≤¥Î∂àÌèâÌòï : 16336
+# ¡§ªÛ : 13369
+# »∏¿¸√º∫“∆Ú«¸ : 16000
 normal_peak, abnormal_peak = total_peak_max_load(type,kw,machine,state,ab_state,200)
 
 # reshape
@@ -87,7 +86,7 @@ model.summary()
 
 # fit the model to the data
 nb_epochs = 100
-batch_size = 10
+batch_size = 20
 
 history = model.fit(X_train, X_train, epochs=nb_epochs, batch_size=batch_size,
                     validation_split=0.05).history
@@ -128,7 +127,7 @@ plt.savefig(f'model_plot/{type}_{kw}_{machine}_{ab_state}_Loss_Scatter_ScaleMinM
 plt.show()
 os.chdir(DATA_PATH)
 
-## Ï†ïÏÉÅ Plot
+## ¡§ªÛ Plot
 #line_train_test = X_train[0].reshape(1,1,60)
 #line_test = model.predict(line_train_test)
 #plt.plot(line_test.reshape(-1))
@@ -153,15 +152,21 @@ plt.savefig(f'model_plot/{type}_{kw}_{machine}_{ab_state}_Test_Loss_Scatter_Scal
 plt.show()
 os.chdir(DATA_PATH)
 
-test_scored['Threshold'] = 0.04
-Threshold1 = 0.021
-Threshold2 = 0.031
-
+test_scored['Threshold'] = 0.12
 #min(test_scored['Loss_mae'])
 
-test_scored['Anomaly'] = [0 if i>Threshold1 and i<Threshold2 else 1 for i in test_scored['Loss_mae']]
-test_scored.head()
-(len(test_scored)-sum(test_scored['Anomaly']))/len(test_scored)
+Anomaly = []
+for i in test_scored['Loss_mae']:
+    if i > 0.12:
+        Anomaly.append(0)
+    else:
+        Anomaly.append(1)
+
+test_scored['Anomaly'] = Anomaly
+#test_scored['Anomaly'] = [0 if i > test_scored['Threshold'] else 1 for i in test_scored['Loss_mae']]
+#test_scored.head()
+(len(test_scored)-sum(test_scored['Anomaly']))/len(test_scored) # 100%
+
 # 0: Pred_Anomaly 1: Pred_Normal 
 os.chdir(OR_PATH)
 plt.figure(figsize=(15,9))
@@ -177,33 +182,48 @@ os.chdir(DATA_PATH)
 
 os.chdir(VALIDATION_PATH)
 
-## Ï†ïÏÉÅ : 4195 VS ÎπÑÏ†ïÏÉÅ : 2043
+## ¡§ªÛ : 1673 VS ∫Ò¡§ªÛ : 2001
 val_normal_peak, val_abnormal_peak = total_peak_max_load(type,kw,machine,state,ab_state,200)
 
 val_normal = val_normal_peak
-val_abnormal = val_abnormal_peak
-
-
 np_val_normal = np.array(val_normal).reshape(len(val_normal)//60,60)
-np_val_abnormal = np.array(val_abnormal).reshape(len(val_abnormal)//60,60)
+
+#scaler
+scaler = MinMaxScaler()
+np_val_normal = scaler.fit_transform(np_val_normal)
 
 #reshape
 val_normal = np_val_normal.reshape(np_val_normal.shape[0],1,np_val_normal.shape[1])
+val_normal_pred = model.predict(val_normal)
+val_normal_pred = val_normal_pred.reshape(val_normal_pred.shape[0],val_normal_pred.shape[2])
+
+val_normal_scored = pd.DataFrame()
+val_normal_scored['Loss_mae'] = np.mean(np.abs(val_normal_pred-np_val_normal), axis = 1)
+
+sns.displot(val_normal_scored['Loss_mae'])
+plt.show()
+val_abnormal = val_abnormal_peak
+np_val_abnormal = np.array(val_abnormal).reshape(len(val_abnormal)//60,60)
+#reshape
 val_abnormal = np_val_abnormal.reshape(np_val_abnormal.shape[0],1,np_val_abnormal.shape[1])
+
 
 print("Validataion Normal Data shape:", val_normal.shape)
 print("Validataion Abnormal Data shape:", val_abnormal.shape)
 
-normal = 1
-abnormal = 0
-
 pd_val_normal = pd.DataFrame(np_val_normal)
 pd_val_abnormal = pd.DataFrame(np_val_abnormal)
 
+scaler = MinMaxScaler()
+pd_val_abnormal = scaler.fit_transform(pd_val_abnormal)
+
+pd_val_normal = pd.DataFrame(pd_val_normal)
+pd_val_abnormal = pd.DataFrame(pd_val_abnormal)
 pd_val_normal['label'] = np.ones(len(np_val_normal))
 pd_val_abnormal['label'] = np.zeros(len(np_val_abnormal))
 
 Validation = pd.concat([pd_val_normal,pd_val_abnormal])
+
 
 # Shuffle Data
 Validation = Validation.sample(frac=1)  
@@ -220,26 +240,23 @@ os.chdir(OR_PATH)
 model = tf.keras.models.load_model(f'model/{type}_{kw}_{machine}_{ab_state}_Scale_Min_Max(max).h5')
 os.chdir(VALIDATION_PATH)
 
-input_val = np.array(Validation.iloc[:,:-1]).reshape(len(Validation),1,60)
+input_val = Validation.iloc[:,:-1]
+input_val = np.array(input_val).reshape(len(input_val),1,60)
 
-scaler = MinMaxScaler()
-input_val = scaler.fit_transform(input_val)
-input_val = input_val.reshape(len(input_val),1,60)
-
-#0.03
+#0.12
 val_predict = model.predict(input_val)
 val_predict = val_predict.reshape(val_predict.shape[0],val_predict.shape[2])
 input_val = input_val.reshape(input_val.shape[0],input_val.shape[2])
-scored = pd.DataFrame()
-scored['Loss_mae'] = np.mean(np.abs(input_val-val_predict), axis=1)
-scored['label'] = Validation['label'].values
+val_scored = pd.DataFrame()
+val_scored['Loss_mae'] = np.mean(np.abs(input_val-val_predict), axis=1)
+val_scored['label'] = Validation['label'].values
 
 plt.figure(figsize=(16,9), dpi=80)
 plt.title('Loss Distribution', fontsize=16)
-sns.distplot(scored['Loss_mae'], bins = 20, kde= True, color = 'blue')
+sns.distplot(val_scored['Loss_mae'], bins = 20, kde= True, color = 'blue')
 plt.show()
 
-# Threshold = 0.04
+# Threshold = 0.12
 #pred = []
 #for i in scored['Loss_mae']:
 #    if 0.02<i<0.04 or 0.05<i<0.1:
@@ -247,16 +264,21 @@ plt.show()
 #    else:
 #        pred.append(0)
 pred = []
-for i in scored['Loss_mae']:
-    if i<0.05:
+for i in val_scored['Loss_mae']:
+    if i>0.12:
         pred.append(1)
     else:
         pred.append(0)
 
-scored['pred'] = pred
+val_scored['pred'] = pred
 
-plt.scatter(range(len(scored)),scored['label'],label='Actual')
-plt.scatter(range(len(scored)),scored['pred'],label='Pred')
+sns.displot(val_scored['label'],label='Actual')
+sns.distplot(val_scored['Loss_mae'], bins = 20, kde= True, color = 'blue')
 plt.show()
 
-sum(scored['pred']==scored['label'])/len(scored) ## 99.7% 
+print(f"{sum(val_scored['pred']==val_scored['label'])/len(val_scored)}") ## 49% 
+
+sns.scatterplot(range(len(val_scored[val_scored['label']==1])),val_scored[val_scored['label']==1]['Loss_mae'],label='normal')
+sns.scatterplot(range(len(val_scored[val_scored['label']==0])),val_scored[val_scored['label']==0]['Loss_mae'],label='abnormal')
+plt.legend()
+plt.show()
