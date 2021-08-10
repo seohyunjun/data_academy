@@ -1,0 +1,2 @@
+type,kw,machine,state,ab_state,training_accuracy,training_threshold,validataion_accuracy,precision,recall,fscore,support,confusion_matrix_00,confusion_matrix_01,confusion_matrix_10,confusion_matrix_11
+vibration,22,L-CAHU-01S,정상,축정렬불량,0.0,0.07841769213558154,0.5044947860481841,0.5243081525804039,0.9297082228116711,0.6704925872788139,1508,1402,106,1272,1

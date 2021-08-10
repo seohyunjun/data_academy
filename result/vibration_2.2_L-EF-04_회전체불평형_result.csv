@@ -1,0 +1,2 @@
+type,kw,machine,state,ab_state,training_accuracy,training_threshold,validataion_accuracy,precision,recall,fscore,support,confusion_matrix_00,confusion_matrix_01,confusion_matrix_10,confusion_matrix_11
+vibration,2.2,L-EF-04,정상,회전체불평형,1.0,0.016404996993375994,0.3275088169285027,0.3275088169285027,1.0,0.493418669242845,2043,2043,0,4195,0

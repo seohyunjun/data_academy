@@ -1,0 +1,2 @@
+type,kw,machine,state,ab_state,training_accuracy,training_threshold,validataion_accuracy,precision,recall,fscore,support,confusion_matrix_00,confusion_matrix_01,confusion_matrix_10,confusion_matrix_11
+vibration,2.2,L-SF-04,정상,베어링불량,0.0,0.08110052480549688,0.6911901081916538,0.7435540069686412,0.8902795160617438,0.8103284602240365,2397,2134,263,736,102

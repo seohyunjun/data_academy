@@ -1,0 +1,2 @@
+type,kw,machine,state,ab_state,training_accuracy,training_threshold,validataion_accuracy,precision,recall,fscore,support,confusion_matrix_00,confusion_matrix_01,confusion_matrix_10,confusion_matrix_11
+vibration,5.5,R-SF-01,정상,축정렬불량,1.0,0.03743299354233177,0.5685828116107,0.569068641412703,0.9985007496251874,0.7249637155297532,2001,1998,3,1513,0

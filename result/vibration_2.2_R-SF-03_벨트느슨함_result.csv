@@ -1,0 +1,2 @@
+type,kw,machine,state,ab_state,training_accuracy,training_threshold,validataion_accuracy,precision,recall,fscore,support,confusion_matrix_00,confusion_matrix_01,confusion_matrix_10,confusion_matrix_11
+vibration,2.2,R-SF-03,정상,벨트느슨함,0.6149,0.06441353419873606,0.5622529644268774,0.5622529644268774,1.0,0.719797596457938,1707,1707,0,1329,0
