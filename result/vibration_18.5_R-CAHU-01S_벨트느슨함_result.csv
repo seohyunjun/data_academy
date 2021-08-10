@@ -1,0 +1,2 @@
+type,kw,machine,state,ab_state,training_accuracy,training_threshold,validataion_accuracy,precision,recall,fscore,support,confusion_matrix_00,confusion_matrix_01,confusion_matrix_10,confusion_matrix_11
+vibration,18.5,R-CAHU-01S,정상,벨트느슨함,0.003,0.13295576164551903,0.17555615116590725,0.12871287128712872,0.00433188937020993,0.008381689232753061,3001,13,2988,88,642

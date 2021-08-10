@@ -391,3 +391,20 @@ def total_peak_max_load(type, kw, machine, state, ab_state,peak_num):
     abnormal_peak = pd.concat(abnormal_peak)
 
     return normal_peak, abnormal_peak
+
+def total_vibration_load(type, kw, machine, state, ab_state):
+    path,file_names = detect_file_name(type, kw, machine, state)
+    normal = []
+    print(f'{type} {kw} {machine} {state} load data')
+    for file in tqdm.tqdm(file_names,total=len(file_names)):
+        normal_data = load_vibration_data(path,file)
+        normal.append(normal_data)
+    normal = pd.concat(normal)
+    path,file_names = detect_file_name(type, kw, machine, ab_state)
+    abnormal = []
+    print(f'{type} {kw} {machine} {ab_state} load data')
+    for file in tqdm.tqdm(file_names,total=len(file_names)):
+        abnormal_data = load_vibration_data(path,file)
+        abnormal.append(abnormal_data)    
+    abnormal = pd.concat(abnormal)
+    return normal, abnormal

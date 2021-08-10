@@ -1,0 +1,2 @@
+type,kw,machine,state,ab_state,training_accuracy,training_threshold,validataion_accuracy,precision,recall,fscore,support,confusion_matrix_00,confusion_matrix_01,confusion_matrix_10,confusion_matrix_11
+vibration,11,R-CHAU-02R,정상,벨트느슨함,1.0,0.09367015907210381,0.4721115537848606,0.5230138713745272,0.8290854572713643,0.6414073071718539,2001,1659,342,1513,0

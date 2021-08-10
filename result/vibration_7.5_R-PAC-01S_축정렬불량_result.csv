@@ -1,0 +1,2 @@
+type,kw,machine,state,ab_state,training_accuracy,training_threshold,validataion_accuracy,precision,recall,fscore,support,confusion_matrix_00,confusion_matrix_01,confusion_matrix_10,confusion_matrix_11
+vibration,7.5,R-PAC-01S,정상,축정렬불량,0.0,0.06579579867698526,0.43486096807415037,0.4372574385510996,0.3378310844577711,0.38116718353538204,2001,676,1325,870,1013

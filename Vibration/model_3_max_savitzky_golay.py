@@ -6,6 +6,22 @@ import pandas as pd
 
 import numpy as np
 
+
+from numpy.random import seed
+import tensorflow as tf
+from tensorflow.keras.layers import Input, Dropout, Dense, LSTM, TimeDistributed, RepeatVector
+from tensorflow.keras.models import Model
+from tensorflow.keras import regularizers
+# set random seed
+seed(10)
+tf.random.set_seed(10)
+
+
+## Font
+import matplotlib.font_manager as fm
+plt.rcParams['axes.unicode_minus'] = False
+plt.rcParams['font.family'] = 'NanumSquare_ac'
+
 ## 
 ## 자취방
 
@@ -62,16 +78,6 @@ X_train = X_train[:10000]
 X_test = X_test[:10000]
 print("Training data shape:", X_train.shape)
 print("Test data shape:", X_test.shape)
-
-
-from numpy.random import seed
-import tensorflow as tf
-from tensorflow.keras.layers import Input, Dropout, Dense, LSTM, TimeDistributed, RepeatVector
-from tensorflow.keras.models import Model
-from tensorflow.keras import regularizers
-# set random seed
-seed(10)
-tf.random.set_seed(10)
 
 
 # define the autoencoder network model
@@ -261,4 +267,3 @@ sum(scored['pred']==scored['label'])/len(scored) ## 66.23%
 from sklearn.metrics import confusion_matrix
 scored['label'] = scored['label'].apply(lambda x: int(x))
 confusion_matrix(scored['label'],scored['pred'])
-co
