@@ -303,19 +303,91 @@ def count_peak(value,num):
     peak = pd.DataFrame()
     peak['max'] = peak_max
     peak['min'] = peak_min
-
     return peak
 
 
+def count_peak_abs(value,num):
+    peak_len = len(value) // num
+    peak_abs = []
+    for i in range(peak_len):
+        temp = value[0+num*i:num+num*i]
+        max_temp = max(temp)
+        min_abs_temp = abs(min(temp))
+
+        peak_abs.append(max_temp+min_abs_temp)
+        
+
+    peak = pd.DataFrame()
+    peak['abs'] = peak_abs
+    return peak
+
 def judge_color(state):
-    if state=='����':
+    if state=='정상':
         col = 'black'
-    if state=='����ҷ�':
+    if state=='베어링불량':
         col = 'red'
-    if state=='ȸ��ü������':
+    if state=='회전체불평형':
         col = 'blue'
-    if state=='�����ĺҷ�':
+    if state=='축정렬불량':
         col = 'green'
-    if state=='��Ʈ������':
+    if state=='벨트느슨함':
         col = 'orange'
     return col
+
+def total_peak_load(type, kw, machine, state, ab_state,peak_num):
+
+    path,file_names = detect_file_name(type, kw, machine, state)
+    
+    normal_peak = []
+
+    print(f'{type} {kw} {machine} {state} load peak data')
+    for file in tqdm.tqdm(file_names,total=len(file_names)):
+        normal_data = load_vibration_data(path,file)
+        normal_data_peak = count_peak_abs(normal_data['vibration'],peak_num)
+        normal_peak.append(normal_data_peak)
+    
+    normal_peak = pd.concat(normal_peak)
+
+
+    path,file_names = detect_file_name(type, kw, machine, ab_state)
+
+    abnormal_peak = []
+
+    print(f'{type} {kw} {machine} {ab_state} load peak data')
+    
+    for file in tqdm.tqdm(file_names,total=len(file_names)):
+        abnormal_data = load_vibration_data(path,file)
+        abnormal_data_peak = count_peak_abs(abnormal_data['vibration'],peak_num)
+        abnormal_peak.append(abnormal_data_peak)
+    
+    abnormal_peak = pd.concat(abnormal_peak)
+
+    return normal_peak, abnormal_peak
+
+def total_peak_max_load(type, kw, machine, state, ab_state,peak_num):
+    
+    path,file_names = detect_file_name(type, kw, machine, state)
+    normal_peak = []
+    print(f'{type} {kw} {machine} {state} load peak data')
+    for file in tqdm.tqdm(file_names,total=len(file_names)):
+        normal_data = load_vibration_data(path,file)
+        normal_data_peak = count_peak(normal_data['vibration'],peak_num)['max']
+        normal_peak.append(normal_data_peak)
+    
+    normal_peak = pd.concat(normal_peak)
+
+
+    path,file_names = detect_file_name(type, kw, machine, ab_state)
+
+    abnormal_peak = []
+
+    print(f'{type} {kw} {machine} {ab_state} load peak data')
+    
+    for file in tqdm.tqdm(file_names,total=len(file_names)):
+        abnormal_data = load_vibration_data(path,file)
+        abnormal_data_peak = count_peak(abnormal_data['vibration'],peak_num)['max']
+        abnormal_peak.append(abnormal_data_peak)
+    
+    abnormal_peak = pd.concat(abnormal_peak)
+
+    return normal_peak, abnormal_peak
