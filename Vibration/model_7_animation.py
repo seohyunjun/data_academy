@@ -44,7 +44,7 @@ def plot_vibration_animation(normal,ab_normal,label1=state,label2=ab_state,len_b
     y = ab_normal.values
     line_x, = ax.plot(range(0,len_bid),color='r',label=f'{label1}')
     line_y, = ax.plot(range(0,len_bid),color='g',label=f'{label2}')
-    ax.set_ylim(0,0.035)
+    ax.set_ylim(0,0.04)
     ax.legend()
     def animate(i):
         line_x.set_ydata(x[0+bid*i:len_bid+bid*i])
