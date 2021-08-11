@@ -10,7 +10,7 @@ import tqdm
 ## Font
 import matplotlib.font_manager as fm
 plt.rcParams['axes.unicode_minus'] = False
-plt.rcParams['font.family'] = 'NanumSquare_ac'
+plt.rcParams['font.family'] = 'HYGothic-Medium'
 font_list = fm.findSystemFonts(fontpaths=None, fontext='ttf')
 Nanum_list = [(f.name, f.fname) for f in fm.fontManager.ttflist if 'Nanum' in f.name]
 
@@ -408,3 +408,5 @@ def total_vibration_load(type, kw, machine, state, ab_state):
         abnormal.append(abnormal_data)    
     abnormal = pd.concat(abnormal)
     return normal, abnormal
+
+    
