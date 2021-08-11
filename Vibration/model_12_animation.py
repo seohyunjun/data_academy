@@ -59,7 +59,7 @@ def plot_vibration_animation(normal,ab_normal,label1=state,label2=ab_state,len_b
     if save==True:
         writer = animation.FFMpegWriter(fps=5,) #metadata=dict(artist='Me'), bitrate=1800)
         #ani_x.save("movie.mp4")
-        ani_x.save(f'{save_name}.gif', writer='imagemagick', fps=10, dpi=100)
+        ani_x.save(f'{save_name}.gif', writer='imagemagick', fps=7, dpi=100)
     plt.show()
 
 os.chdir(OR_PATH)
