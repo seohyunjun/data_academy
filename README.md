@@ -8,7 +8,11 @@
      26   정상 & 벨트느슨함(11) R-CHAU-02R
        - Constant K 설정
        - K 기준 데이터의 99%가 위에 있으면 불량, 데이터의 99%가 아래에 있으면 정상
+       
+<img width="90%" src="https://github.com/seohyunjun/data_academy/blob/main/plot/vibration_peak_plot3/3_vibration_2.2_L-EF-04_%ED%9A%8C%EC%A0%84%EC%B2%B4%EB%B6%88%ED%8F%89%ED%98%95.jpg?raw=true"/>
 
+<img width="80%" src="https://github.com/seohyunjun/data_academy/blob/main/plot/model_3_nugabado_gubyul.gif?raw=true"/>
+       
 ## 2A. CR(Coverage Ratio) 이용하여 분류 가능
      2    정상 & 축정렬불량(2.2) L-DSF-01
      4    정상 & 베어링불량(2.2) L-SF-04
@@ -23,7 +27,9 @@
      32   정상 & 축정렬불량(22) L-CAHU-01S
      37   정상 & 회전체불평형(55) L-PAHU-03S
      def. CR각 포인트 별로 (엑셀파일 각 값) 평균값을 산출하여 하나의 선을 만들고, 그 데이터에서 얼마나 밖으로 나가있는지 비율로 계산
-    
+<img width="90%" src="https://github.com/seohyunjun/data_academy/blob/main/plot/vibration_peak_plot3/2_vibration_2.2_L-DSF-01_%EC%B6%95%EC%A0%95%EB%A0%AC%EB%B6%88%EB%9F%89.jpg?raw=true"/>
+
+<img width="80%" src="https://github.com/seohyunjun/data_academy/blob/main/plot/model_2_Coverage_Ratio.gif?raw=true"/>
 ## 2B. iCR 사용해야하는 경우
      7    정상 & 벨트느슨함(2.2) R-EF-05
      29   정상 & 벨트느슨함(15) R-CAHU-03S
@@ -33,7 +39,9 @@
     각 포인트 별로 (엑셀파일 각 값) 평균값을 산출하여 하나의 선을 만들고, 그 데이터에서 얼마나 안으로 들어가있는지 비율로 계산
     CR = (200 - in point) / 200: 1에 가까울수록 정상에 가까움
 			    0에 가까울수록 비정상에 가까움
+<img width="90%" src="https://github.com/seohyunjun/data_academy/blob/main/plot/vibration_peak_plot3/7_vibration_2.2_R-EF-05_%EB%B2%A8%ED%8A%B8%EB%8A%90%EC%8A%A8%ED%95%A8.jpg?raw=true"/>
 
+<img width="80%" src="https://github.com/seohyunjun/data_academy/blob/main/plot/model_7_iCR_%EC%82%AC%EC%9A%A9.gif?raw=true"/>
 ## 3. 완전 알 수 없는 경우
     12 정상 & 회전체불평형(3.7) L-PAC-01
     21 정상 & 벨트느슨함(7.5) R-CAHU-03R
@@ -43,7 +51,9 @@
     33 정상 & 회전체불평형(22) L-CAHU-02S
     35 정상 & 축정렬불량(30) R-PAHU-03S
     36 정상 & 축정렬불량(37) L-PAHU-02S
+<img width="90%" src="https://github.com/seohyunjun/data_academy/blob/main/plot/vibration_peak_plot3/12_vibration_3.7_L-PAC-01_%ED%9A%8C%EC%A0%84%EC%B2%B4%EB%B6%88%ED%8F%89%ED%98%95.jpg?raw=true"/>
 
+<img width="80%" src="https://github.com/seohyunjun/data_academy/blob/main/plot/model_12_nodab.gif?raw=true"/>
    추후 연구과제
 
 ## 4. 정상만 있는 경우
@@ -51,7 +61,7 @@
 
    추후연구과제
 
-
+<img width="90%" src="https://github.com/seohyunjun/data_academy/blob/main/plot/vibration_peak_plot3/1_vibration_2.2_L-DEF-01_%EC%A0%95%EC%83%81.jpg?raw=true"/>
 
 
 [0807]
