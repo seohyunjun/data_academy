@@ -103,6 +103,20 @@ plt.savefig(f'model_plot/{type}_{kw}_{machine}_{ab_state}_Model_Loss_Plot_Scale_
 plt.show()
 os.chdir(DATA_PATH)
 
+os.chdir(OR_PATH)
+plt.figure(figsize=(15,8))
+plt.plot(X_train[0][0][:],label=f'{type}_{kw}_{machine}_{state}')
+plt.legend()
+plt.savefig('Normal_data_plot.jpg',dpi=300)
+plt.show()
+
+plt.figure(figsize=(15,8))
+plt.plot(X_pred[0][0][:],label=f'{type}_{kw}_{machine}_{state}_gen',color='r')
+plt.legend()
+plt.savefig('VAE_Normal_data_plot.jpg',dpi=300)
+plt.show()
+os.chdir(DATA_PATH)
+
 # plot the loss distribution of the training set
 X_pred = model.predict(X_train)
 X_pred = X_pred.reshape(X_pred.shape[0], X_pred.shape[2])
