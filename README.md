@@ -9,7 +9,7 @@
        - Constant K 설정
        - K 기준 데이터의 99%가 위에 있으면 불량, 데이터의 99%가 아래에 있으면 정상
        
-<img width="50%" src="https://github.com/seohyunjun/data_academy/blob/main/plot/vibration_peak_plot3/3_vibration_2.2_L-EF-04_%ED%9A%8C%EC%A0%84%EC%B2%B4%EB%B6%88%ED%8F%89%ED%98%95.jpg?raw=true"/>
+<img width="75%" src="https://github.com/seohyunjun/data_academy/blob/main/plot/vibration_peak_plot3/3_vibration_2.2_L-EF-04_%ED%9A%8C%EC%A0%84%EC%B2%B4%EB%B6%88%ED%8F%89%ED%98%95.jpg?raw=true"/>
        
 ## 2A. CR(Coverage Ratio) 이용하여 분류 가능
      2    정상 & 축정렬불량(2.2) L-DSF-01
