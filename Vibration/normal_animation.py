@@ -66,21 +66,20 @@ os.chdir(OR_PATH)
 plot_vibration_animation(normal_data_peak,abnormal_data_peak,state,ab_state,save=True,save_name='model_12')
 os.chdir(DATA_PATH)
 
-
-def plot_vibration_animation(normal,len_bid=20,bid=5,save=None,save_name=None):
+def plot_vibration_animation2(normal,len_bid=20,bid=5,save=None,save_name=None):
     fig, ax = plt.subplots(1,1)
     t = range(len(normal))
-    x = normal.values
+    x = normal['vibration'].values
     line_x, = ax.plot(range(0,len_bid),color='r')
-    ax.set_ylim(0,0.035)
+    ax.set_ylim(-0.05,0.05)
     ax.legend()
     def animate(i):
         line_x.set_ydata(x[0+bid*i:len_bid+bid*i])
-        print(i)
+        #print(i)
         return [line_x]
 
     t = (len(x)-len_bid) // bid
-    ani_x= animation.FuncAnimation(fig, animate,t, interval=100, blit=True, save_count=1)
+    ani_x= animation.FuncAnimation(fig, animate,t, interval=t, blit=True, save_count=1)
     #ani_y = animation.FuncAnimation(fig, animate_y, interval=200, blit=True, save_count=1)
     #ani_z = animation.FuncAnimation(fig, animate_z, interval=200, blit=True, save_count=1)
     if save==True:
@@ -89,6 +88,5 @@ def plot_vibration_animation(normal,len_bid=20,bid=5,save=None,save_name=None):
         ani_x.save(f'{save_name}.gif', writer='imagemagick', fps=7, dpi=100)
     plt.show()
 
-os.chdir(OR_PATH)
-plot_vibration_animation(normal_data_peak,save=True,save_name='normal')
-os.chdir(DATA_PATH)
+
+plot_vibration_animation2(normal_data,len_bid=80,bid=100)
