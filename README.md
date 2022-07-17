@@ -87,3 +87,9 @@ https://docs.google.com/presentation/d/1Yr0i_iTTahdRIN6ClQu0KhNzEUtT0Er-BmW5j29_
 
 ~11일까지 
 https://docs.google.com/presentation/d/1Yr0i_iTTahdRIN6ClQu0KhNzEUtT0Er-BmW5j29_XnU/edit#slide=id.ge7f8985915_0_83
+
+
+
+
+[LSTM-AE]
+육안으로 구분할 수 없는 데이터 정상 신호를 AE로 만들어 비교 map와 큰 차이 날 경우 이상치로 분류
