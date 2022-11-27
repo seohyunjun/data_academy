@@ -86,7 +86,7 @@
 <br><br/>
 
 ## Reference Material
-- [LSTM-based Encoder-Decoder for Multi-sensor Anomaly Detection](chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/https://arxiv.org/pdf/1607.00148.pdf)
+- [LSTM-based Encoder-Decoder for Multi-sensor Anomaly Detection](https://arxiv.org/pdf/1607.00148)
 - [Jittering](https://campus.datacamp.com/courses/exploratory-data-analysis-in-python/relationships?ex=4https://blog.naver.com/statstorm/222410116082)
 - [sampling 방법](https://blog.naver.com/pmw9440/222414568243)
 
