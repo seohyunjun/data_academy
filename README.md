@@ -1,4 +1,4 @@
-# Data Academy 2022 :prize:
+# Data Academy 2022 :1st_place_medal:
 
 ## 센서 신호분석을 통한 이상분류 모델 개발([기계시설물 고장 예지 센서 데이터](https://www.aihub.or.kr/aihubdata/data/view.do?currMenu=115&topMenu=100&aihubDataSe=realm&dataSetSn=238))
 <br><br/>
@@ -13,7 +13,7 @@
 <br><br/>
 
 ## :pushpin:Classification Info
-> ### 1. 휴리스틱 기준으로 분류 가능
+> ### 1 휴리스틱 기준으로 분류 가능
      3    정상 & 회전체불평형(2.2) L-EF-04 (구분이 되는 듯 안되는 유형)
      17   정상 & 회전체불평형(5.5) R-CAHU-01R
      18   정상 & 축정렬불량(5.5) R-SF-01   
@@ -25,7 +25,7 @@
 <img width="100%" height="30%" src="https://github.com/seohyunjun/data_academy/blob/main/plot/model_3_nugabado_gubyul.gif?raw=true"/>
 <br><br/>
 
-> ### 2A. CR(Coverage Ratio) 이용하여 분류 가능
+> ### 2A CR(Coverage Ratio) 이용하여 분류 가능
      2    정상 & 축정렬불량(2.2) L-DSF-01
      4    정상 & 베어링불량(2.2) L-SF-04
      8    정상 & 벨트느슨함(2.2) R-SF-03
@@ -43,7 +43,7 @@
 <img width="100%" src="https://github.com/seohyunjun/data_academy/blob/main/plot/model_2_Coverage_Ratio.gif?raw=true"/>
 <br><br/>
 
-> ### 2B. iCR 사용해야하는 경우
+> ### 2B iCR 사용해야하는 경우
      7    정상 & 벨트느슨함(2.2) R-EF-05
      29   정상 & 벨트느슨함(15) R-CAHU-03S
      30   정상 & 벨트느슨함(18.5) R-CAHU-01S
@@ -56,7 +56,7 @@
 <img width="100%" src="https://github.com/seohyunjun/data_academy/blob/main/plot/model_7_iCR_%EC%82%AC%EC%9A%A9.gif?raw=true"/>
 <br><br/>
 
-> ### 3. 완전 알 수 없는 경우
+> ### 3 완전 알 수 없는 경우
     12 정상 & 회전체불평형(3.7) L-PAC-01
     21 정상 & 벨트느슨함(7.5) R-CAHU-03R
     23 정상 & 축정렬불량 &  회전체불평형(11) L-CAHU-01R
@@ -70,7 +70,7 @@
 <img width="100%" src="https://github.com/seohyunjun/data_academy/blob/main/plot/model_12_nodab.gif?raw=true"/>
 <br></br>
 
-> ### 4. 정상만 있는 경우
+> ### 4 정상만 있는 경우
     1,5,6,9,11,13,14,15,20,24,28
   
 <img width="100%" src="https://github.com/seohyunjun/data_academy/blob/main/plot/vibration_peak_plot3/1_vibration_2.2_L-DEF-01_%EC%A0%95%EC%83%81.jpg?raw=true"/>
