@@ -1,4 +1,4 @@
-# Data Academy 2022
+# Data Academy 2022 :prize:
 
 ## 센서 신호분석을 통한 이상분류 모델 개발([기계시설물 고장 예지 센서 데이터](https://www.aihub.or.kr/aihubdata/data/view.do?currMenu=115&topMenu=100&aihubDataSe=realm&dataSetSn=238))
 <br><br/>
