@@ -76,14 +76,20 @@
 <img width="100%" src="https://github.com/seohyunjun/data_academy/blob/main/plot/vibration_peak_plot3/1_vibration_2.2_L-DEF-01_%EC%A0%95%EC%83%81.jpg?raw=true"/>
 
 - 육안으로 구분할 수 없는 데이터 정상 신호를 AE로 만들어 비교 map와 큰 차이 날 경우 이상치로 분류
-### == plot disp -> abs(min) constant line
+- plot disp -> abs(min) constant line
 <br></br>
 
+
+> LSTM-AE
+
+<img width="100%" src="https://github.com/seohyunjun/data_academy/blob/main/lstm_autoencoder_disp.png?raw=true"/>
+<br><br/>
+
 ## Reference Material
+- [LSTM-based Encoder-Decoder for Multi-sensor Anomaly Detection](chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/https://arxiv.org/pdf/1607.00148.pdf)
 - [Jittering](https://campus.datacamp.com/courses/exploratory-data-analysis-in-python/relationships?ex=4https://blog.naver.com/statstorm/222410116082)
 - [sampling 방법](https://blog.naver.com/pmw9440/222414568243)
-- [Jittering](https://campus.datacamp.com/courses/exploratory-data-analysis-in-python/relationships?ex=4https://blog.naver.com/statstorm/222410116082)
-<br></br>
+
 
 <!-- 
 ## Power Point
@@ -93,8 +99,4 @@ https://docs.google.com/presentation/d/1Yr0i_iTTahdRIN6ClQu0KhNzEUtT0Er-BmW5j29_
 https://docs.google.com/presentation/d/1Yr0i_iTTahdRIN6ClQu0KhNzEUtT0Er-BmW5j29_XnU/edit#slide=id.ge7f8985915_0_83 -->
 
 
-
-
-## Model
-- [LSTM-AE](https://campus.datacamp.com/courses/exploratory-data-analysis-in-python/relationships?ex=4https://blog.naver.com/statstorm/222410116082)
 
